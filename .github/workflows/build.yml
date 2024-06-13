@@ -27,7 +27,7 @@ jobs:
         run: cargo build
       - name: Run system tests
         run: |
-          EVENT_NAME = "${{ github.event_name }}"
+          EVENT_NAME="${{ github.event_name }}"
           echo "Retrieved EVENT_NAME = ${EVENT_NAME}"
           mkdir -p target/robot_tests_result
           chown vscode target/robot_tests_result
