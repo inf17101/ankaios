@@ -25,21 +25,13 @@ jobs:
       - uses: actions/checkout@v4.1.1
       - name: Build debug
         run: cargo build
-      - name: Print debug information
-        run: |
-          echo "github.ref = ${{ github.ref }}"
-          echo "github.head_ref = ${{ github.head_ref }}"
-          echo "github.event_name = ${{ github.event_name }}"
-          echo "github.event.pull_request.merged = ${{ github.event.pull_request.merged }}"
       - name: Run system tests
         run: |
-          echo "github.ref = ${{ github.ref }}"
-          echo "github.head_ref = ${{ github.head_ref }}"
-          echo "github.event_name = ${{ github.event_name }}"
-          echo "github.event.pull_request.merged = ${{ github.event.pull_request.merged }}"
+          EVENT_NAME = "${{ github.event_name }}"
+          echo "Retrieved EVENT_NAME = ${EVENT_NAME}"
           mkdir -p target/robot_tests_result
           chown vscode target/robot_tests_result
-          if [ ${{ github.event_name == 'pull_request' }} ]; then
+          if [ ${EVENT_NAME} == 'pull_request' ]; then
             SYSTEM_TEST_EXCLUDE_TAG="non_execution_during_pull_request_verification"
             echo "Run is a PR verification, system tests tagged with '$SYSTEM_TEST_EXCLUDE_TAG' are NOT executed and skipped."
             su vscode -c "tools/run_robot_tests.sh --exclude $SYSTEM_TEST_EXCLUDE_TAG tests"
