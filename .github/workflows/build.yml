@@ -33,6 +33,10 @@ jobs:
           echo "github.event.pull_request.merged = ${{ github.event.pull_request.merged }}"
       - name: Run system tests
         run: |
+          echo "github.ref = ${{ github.ref }}"
+          echo "github.head_ref = ${{ github.head_ref }}"
+          echo "github.event_name = ${{ github.event_name }}"
+          echo "github.event.pull_request.merged = ${{ github.event.pull_request.merged }}"
           mkdir -p target/robot_tests_result
           chown vscode target/robot_tests_result
           if [ ${{ github.event_name == 'pull_request' }} ]; then
