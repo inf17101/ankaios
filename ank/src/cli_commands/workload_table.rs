@@ -14,6 +14,7 @@
 
 #[cfg(not(test))]
 use crate::log::terminal_width;
+use crate::output_debug;
 
 #[cfg(test)]
 fn terminal_width() -> usize {
