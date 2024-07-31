@@ -162,9 +162,13 @@ where
         let is_reasonable_terminal_width =
             terminal_width.checked_sub(column_name_length)? >= table_width_except_last_column;
 
+        output_debug!("terminal width: {}, column_name_length: {}, total_table_width: {}, is_reasonable_terminal_width: {}, table_width_except_last_column: {}, additional_info_width: {}",
+            terminal_width, column_name_length, total_table_width, is_reasonable_terminal_width, table_width_except_last_column, additional_info_width);
+        
         if is_reasonable_terminal_width {
             terminal_width.checked_sub(table_width_except_last_column)
         } else {
+            output_debug!("no reasonable terminal width available.");
             None // no reasonable terminal width left, avoid breaking the column header name formatting
         }
     }
